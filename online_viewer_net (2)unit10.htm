@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>And Rule Game</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+    }
+    .card {
+        background: white;
+        width: 75%;
+        margin: 80px auto;
+        padding: 30px;
+        border-radius: 25px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    h2 {
+        font-size: 26px;
+    }
+    button {
+        padding: 15px 30px;
+        font-size: 18px;
+        margin: 15px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    .correct {
+        background-color: #4CAF50;
+        color: white;
+    }
+    .wrong {
+        background-color: #f44336;
+        color: white;
+    }
+    #feedback {
+        font-size: 22px;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h2 id="sentence"></h2>
+    <button class="correct" onclick="checkAnswer(true)">Correct ✔</button>
+    <button class="wrong" onclick="checkAnswer(false)">Incorrect ✘</button>
+    <p id="feedback"></p>
+</div>
+
+<script>
+const questions = [
+    // Fahd
+    { text: "Fahd is athletic and plays football.", answer: true },
+
+    // Sara
+    { text: "Sara has long hair and likes drawing.", answer: true },
+
+    // Ali (incorrect – repeated subject)
+    { text: "Ali is tall and Ali has blue eyes.", answer: false },
+
+    // Lina
+    { text: "Lina is friendly and helps her friends.", answer: true },
+
+    // Omar (incorrect)
+    { text: "Omar likes math and Omar studies hard.", answer: false },
+
+    // He
+    { text: "He is tall and has brown eyes.", answer: true },
+
+    // She (incorrect)
+    { text: "She is kind and she shares her toys.", answer: false },
+
+    // Adam
+    { text: "Adam runs fast and wins the race.", answer: true }
+];
+
+let index = 0;
+
+function loadQuestion() {
+    document.getElementById("sentence").innerText = questions[index].text;
+    document.getElementById("feedback").innerText = "";
+}
+
+function checkAnswer(choice) {
+    if (choice === questions[index].answer) {
+        document.getElementById("feedback").innerText = "🌟 Excellent!";
+    } else {
+        document.getElementById("feedback").innerText = "❌ Remember: Do not repeat the subject.";
+    }
+
+    setTimeout(() => {
+        index++;
+        if (index < questions.length) {
+            loadQuestion();
+        } else {
+            document.querySelector(".card").innerHTML =
+                "<h2>🏆 Great job!</h2><p>You learned the AND rule!</p>";
+        }
+    }, 1600);
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
